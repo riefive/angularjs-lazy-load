@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel=stylesheet href="https://fonts.googleapis.com/css?family=Material+Icons">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="https://code.angularjs.org/1.8.2/angular.js"></script>
+    <script src="https://code.angularjs.org/1.8.2/angular-route.js"></script>
+    <script src="https://code.angularjs.org/1.8.2/angular-cookies.js"></script>
+    <script src="https://unpkg.com/@angular/router@0.2.0/angular1/angular_1_router.js"></script>
+    <script type="text/javascript">
+        angular.element(document.getElementsByTagName('head')).append(angular.element('<base href="' + window.location.pathname + '" />'));
+    </script>
+    <title>Demo - Typicode with Lazy</title>
+</head>
+<body ng-app="MyApp">
+    <div class="container-fluid" ng-controller="AppController as vm">
+        <a ng-if="vm.isLoggedIn() == false" href="login">Login</a>
+        <div class="row flex-nowrap">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+                <div class="d-flex flex-column flex-shrink-0 px-2 pt-2 text-white min-vh-100">
+                    <ul class="nav nav-pills flex-column mb-auto" id="menu">
+                        <li ng-repeat="(i, menu) in vm.menus" ng-click="vm.doChangeMenu(menu.id)">
+                            <a href="{{ menu.path }}" class="nav-link" ng-class="{ 'active': vm.menuActive == menu.id }" aria-current="page">
+                                <i class="fs-4 {{ menu.icon }}"></i>
+                                <span class="ms-1 d-none d-sm-inline">{{ menu.text }}</span> 
+                            </a>
+                        </li>
+                    </ul>
+                    <hr>
+                    <div ng-if="vm.isLoggedIn() == true" class="dropdown pb-4">
+                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                            <span class="d-none d-sm-inline mx-1">Test User</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                            <li><a class="dropdown-item" ng-click="vm.logout()">Sign out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col py-3">
+                <h3>{{ vm.title }}</h3>
+                <ng-view></ng-view>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
+    <script src="dist/config.js"></script>
+    <script src="dist/services/auth.service.js"></script>
+    <script src="dist/app.controller.js"></script>
+    <script src="dist/providers/http.interceptor.js"></script>
+    <script src="dist/providers/lazy.provider.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="dist/app.css">
+</body>
+</html>

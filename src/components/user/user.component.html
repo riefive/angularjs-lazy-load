@@ -1,0 +1,23 @@
+<table class="table table-default">
+    <thead>
+        <tr>
+            <th ng-repeat="(i, col) in vm.columns" scope="col">{{ col.text }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="(j, row) in vm.rows">
+            <th scope="row">{{ j + 1 }}</th>
+            <td>{{ row.name }}</td>
+            <td>{{ row.username }}</td>
+            <td>{{ row.email }}</td>
+            <td>{{ vm.getDisplayStreet(row.address) }}</td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link cursor-pointer" ng-click="vm.handlePrevious()">Previous</a></li>
+        <li class="page-item"><a class="page-linkcursor-pointer" ng-click="vm.handleNext()">Next</a></li>
+    </ul>
+</nav>
