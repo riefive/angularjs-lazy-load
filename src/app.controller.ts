@@ -143,6 +143,7 @@ namespace App
             .when('/task-b', lz.resolve('taskBPage', 'task-b' , ['task-b'], { requiredAuth: true }))
             .when('/task-c', lz.resolve('taskCPage', 'task-c' , ['task-c'], { requiredAuth: true, roles: ['admin'] }))
             .when('/post', lz.resolve('postPage', 'post' , ['post'], { requiredAuth: true, roles: ['admin'], title: 'Post List' }))
+            .when('/post/:id', lz.resolve('postIdPage', 'post-id' , ['post'], { requiredAuth: true, roles: ['admin'], title: 'Post Detail' }))
             .when('/todo', lz.resolve('todoPage', 'todo' , ['todo'], { requiredAuth: true, roles: ['admin'], title: 'Todo List' }))
             .when('/todo/:id', lz.resolve('todoIdPage', 'todo-id' , ['todo'], { requiredAuth: true, roles: ['admin'], title: 'Todo Detail' }))
             .when('/user', lz.resolve('userPage', 'user' , ['user'], { requiredAuth: true, roles: ['admin'], title: 'User List' }))

@@ -33,6 +33,24 @@ namespace App
             return result;
         }
 
+        Insert(payload: any) 
+        {
+            const result = this.http.post<Todo>(`${config.apiURL}/posts`, payload, { responseType: 'json' });
+            return result;
+        }
+        
+        Update(id: number, payload: any) 
+        {
+            const result = this.http.put<Todo>(`${config.apiURL}/posts/${id}`, payload, { responseType: 'json' });
+            return result;
+        }
+        
+        Remove(id: number) 
+        {
+            const result = this.http.delete<Todo>(`${config.apiURL}/posts/${id}`, { responseType: 'json' });
+            return result;
+        }
+
         static Factory(http: angular.IHttpService, q: angular.IQService)
         {
             return new PostService(http, q);

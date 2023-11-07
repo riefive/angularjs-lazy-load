@@ -7,7 +7,8 @@ namespace App
         static $inject = ['$location', 'PostService']
         public columns = [
             { id: 'number', text: '#' },
-            { id: 'title', text: 'Title' }
+            { id: 'title', text: 'Title' },
+            { id: 'action', text: '' }
         ]
         public rows: any = []
         public data: any = []
@@ -50,6 +51,21 @@ namespace App
         {
             this.page++;
             this.getData()
+        }
+
+        handleNavigate(path: string)
+        {
+            this.location.path(path)
+        }
+
+        doAdd()
+        {
+            this.handleNavigate('/post/add')
+        }
+
+        doEdit(id: number)
+        {
+            this.handleNavigate(`/post/${id}`)
         }
     }
 

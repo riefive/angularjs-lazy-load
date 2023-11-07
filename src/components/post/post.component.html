@@ -1,3 +1,6 @@
+<button type="button" class="btn btn-primary" style="width: 120px;" ng-click="vm.doAdd()">
+    <i class="bi-plus"></i> Add Post
+</button>
 <table class="table table-default">
     <thead>
         <tr>
@@ -8,6 +11,14 @@
         <tr ng-repeat="(j, row) in vm.rows">
             <th scope="row">{{ ((vm.getPage() - 1) * 10) + j + 1 }}</th>
             <td>{{ row.title }}</td>
+            <td align="center">
+                <span class="cursor-pointer mr-2" ng-click="vm.doEdit(row.id)">
+                    <i class="bi-pencil-square"></i>
+                </span>
+                <span class="cursor-pointer">
+                    <i class="bi-trash"></i>
+                </span>
+            </td>
         </tr>
     </tbody>
 </table>
