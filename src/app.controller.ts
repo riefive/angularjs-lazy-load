@@ -19,10 +19,11 @@ namespace App
         public title: string = ''
         public menuActive: string = 'home'
         public menus: any[] = [
-            { id: 'home', icon: 'bi-house', text: 'Main', path: 'task-a' },
+            { id: 'home', icon: 'bi-house', text: 'Main', path: '' },
             { id: 'todo', icon: 'bi-grid', text: 'Todo List', path: 'todo' },
             { id: 'post', icon: 'bi-grid', text: 'Post List', path: 'post' },
-            { id: 'user', icon: 'bi-people', text: 'User List', path: 'user' }
+            { id: 'user', icon: 'bi-people', text: 'User List', path: 'user' },
+            { id: 'login', icon: 'bi-box-arrow-in-right', text: 'Login', path: 'login' }
         ]
 
         constructor(
@@ -34,7 +35,6 @@ namespace App
             private authSrv: AuthService
         )
         {
-            // console.log(this.rootScope.$root)
         }
 
         $onInit(): void 
@@ -44,6 +44,10 @@ namespace App
 
         public beforeEnterPage()
         {
+            const isShowError = false;
+            if (this.isLoggedIn()) {
+                this.menus = this.menus.filter((item) => item.id !== 'login')
+            }
             this.scope.$on('$routeChangeStart', (
                 angularEvent: angular.IAngularEvent, 
                 newUrl?: angular.route.IRoute
@@ -51,9 +55,12 @@ namespace App
             {
                 if (newUrl == null) {
                     // workaround to get new path after changed... 
-                    setTimeout(() => {throw new Error(`This route (${window.location.href}) doesn't exist!`)}, 500)
+                    if (isShowError)
+                    {
+                        setTimeout(() => {throw new Error(`This route (${window.location.href}) doesn't exist!`)}, 500);
+                    }
                     return;
-                };
+                }
 
                 let count = 0;
                 let userRole = this.authSrv.roles();
@@ -122,6 +129,7 @@ namespace App
         }
 
         route
+            .when('/', lz.resolve('mainPage', 'main' , ['task-a', 'task-b', 'task-c'], { title: 'Main Page' }))
             .when('/task-a', lz.resolve('taskAPage', 'task-a' , ['task-a']))
             .when('/task-b', lz.resolve('taskBPage', 'task-b' , ['task-b'], { requiredAuth: true }))
             .when('/task-c', lz.resolve('taskCPage', 'task-c' , ['task-c'], { requiredAuth: true, roles: ['admin'] }))

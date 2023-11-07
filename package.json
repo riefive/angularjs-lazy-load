@@ -4,14 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx http-server ./ -c-1 -p 3100",
+    "start": "live-server --open=.",
+    "start:dev": "npx http-server ./ -c-1 -p 3100",
     "compile": "npx babel --watch src --out-dir dist --extensions .ts --source-maps inline --copy-files --no-copy-ignored",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.23.0",
     "@babel/core": "^7.23.2",
@@ -19,6 +19,7 @@
     "@babel/preset-typescript": "^7.23.2",
     "@types/angular": "^1.8.7",
     "@types/angular-cookies": "^1.8.3",
-    "@types/angular-route": "^1.7.5"
+    "@types/angular-route": "^1.7.5",
+    "live-server": "^1.2.2"
   }
 }

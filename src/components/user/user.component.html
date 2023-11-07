@@ -15,7 +15,7 @@
     </tbody>
 </table>
 <br>
-<nav aria-label="Page navigation example">
+<nav ng-if="this.rows.length > 0" aria-label="Page navigation example">
     <ul class="pagination">
         <li class="page-item"><a class="page-link cursor-pointer" ng-click="vm.handlePrevious()">Previous</a></li>
         <li class="page-item"><a class="page-link cursor-pointer" ng-click="vm.handleNext()">Next</a></li>
