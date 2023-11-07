@@ -5,6 +5,7 @@ namespace App
     class UserController implements angular.IOnInit
     {
         static $inject = ['$location', 'UserService']
+        public loading = true
         public columns = [
             { id: 'number', text: '#' },
             { id: 'name', text: 'Name' },
@@ -29,9 +30,11 @@ namespace App
 
         getData() {
             this.rows.length = 0;
+            this.loading = true
             this.userSrv.GetByParams({ page: this.page, limit: 10 }).then((result) => {
                 const data = result?.data || []
                 this.rows = data
+                this.loading = false
             })
         }
 

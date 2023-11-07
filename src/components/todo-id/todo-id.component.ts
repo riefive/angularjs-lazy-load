@@ -5,6 +5,7 @@ namespace App
     export class TodoIdController implements angular.IController
     {
         static $inject = ['$scope', '$location', 'TodoService']
+        public loading = true
         public idNumber = 0
         public typeSave = 'add'
         public form = {
@@ -42,12 +43,18 @@ namespace App
             }
             if (this.typeSave === 'edit')
             {
+                this.loading = true
                 this.todoSrv.GetOne(this.idNumber).then((result) => {
                     if (result.data) {
                         this.form.title = result.data?.title || ''
                         this.form.completed = result.data?.completed || false
                     }
+                    this.loading = false
                 })
+            }
+            else 
+            {
+                this.loading = false
             }
         }
 
@@ -60,11 +67,13 @@ namespace App
         public doSave()
         {   
             if (this.getForm().$invalid) return;
+            this.loading = true
             if (this.typeSave === 'add') 
             {
                 this.todoSrv.Insert({ title: this.form.title, completed: this.form.completed })
                     .then((result) => {
                         alert('Berhasil menyimpan ' + JSON.stringify(result.data || ''))
+                        this.loading = false
                         this.location.path('/todo');
                     });
             }
@@ -73,8 +82,13 @@ namespace App
                 this.todoSrv.Update(this.idNumber, { title: this.form.title, completed: this.form.completed })
                     .then((result) => {
                         alert('Berhasil mengubah ' + JSON.stringify(result.data || ''))
+                        this.loading = false
                         this.location.path('/todo');
                     });
+            }
+            else
+            {
+                this.loading = false
             }
         }
     }

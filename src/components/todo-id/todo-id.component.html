@@ -1,17 +1,25 @@
-<div style="padding: 4px">
-    <form name="form" novalidate method="post" ng-submit="vm.doSave()">
-        <div class="form-group">
-            <label>Title</label>
-            <textarea name="title" class="form-control" rows="4" ng-model="vm.form.title" required></textarea>
-            <span ng-if="vm.isInvalid('title', 'required')">
-                Judul tidak boleh kosong!
-            </span>
-        </div>
-        <div class="form-group">
-            <label>Completed</label>
-            <input type="checkbox" ng-model="vm.form.completed">
-        </div>
-        <br>
-        <button type="submit" class="btn btn-primary" style="width: 120px;">Save</button>
-    </form>
+<div ng-if="vm.loading" class="d-flex flex-row flex-wrap justify-content-center gap-3">
+    <photo class="shine"></photo>
+    <photo class="shine"></photo>
+    <photo class="shine"></photo>
+</div>
+<div ng-class="{ 'd-none': vm.loading }">
+    <div style="padding: 4px">
+        <form name="form" novalidate method="post" ng-submit="vm.doSave()">
+            <div class="form-group">
+                <label>Title</label>
+                <textarea name="title" class="form-control" rows="4" ng-model="vm.form.title" required></textarea>
+                <span ng-if="vm.isInvalid('title', 'required')">
+                    Judul tidak boleh kosong!
+                </span>
+            </div>
+            <div class="form-group">
+                <label>Completed</label>
+                <input type="checkbox" ng-model="vm.form.completed">
+            </div>
+            <br>
+            <button type="button" class="btn btn-secondary" style="width: 120px;">Back</button>
+            <button type="submit" class="btn btn-primary" style="width: 120px;">Save</button>
+        </form>
+    </div>
 </div>

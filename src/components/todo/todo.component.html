@@ -1,34 +1,41 @@
-<button type="button" class="btn btn-primary" style="width: 120px;" ng-click="vm.doAdd()">
-    <i class="bi-plus"></i> Add Todo
-</button>
-<table class="table table-default">
-    <thead>
-        <tr>
-            <th ng-repeat="(i, col) in vm.columns" scope="col">{{ col.text }}</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="(j, row) in vm.rows">
-            <th scope="row">{{ ((vm.getPage() - 1) * 10) + j + 1 }}</th>
-            <td>{{ row.title }}</td>
-            <td>
-                <input type="checkbox" ng-model="row.completed">
-            </td>
-            <td align="center">
-                <span class="cursor-pointer mr-2" ng-click="vm.doEdit(row.id)">
-                    <i class="bi-pencil-square"></i>
-                </span>
-                <span class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#todo-remove-modal" ng-click="vm.doRemove(row.id)">
-                    <i class="bi-trash"></i>
-                </span>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<nav aria-label="Page navigation example">
-    <ul class="pagination">
-        <li class="page-item"><a class="page-link cursor-pointer" ng-click="vm.handlePrevious()">Previous</a></li>
-        <li class="page-item"><a class="page-link cursor-pointer" ng-click="vm.handleNext()">Next</a></li>
-    </ul>
-</nav>
+<div ng-if="vm.loading" class="d-flex flex-row flex-wrap justify-content-center gap-3">
+    <photo class="shine"></photo>
+    <photo class="shine"></photo>
+    <photo class="shine"></photo>
+</div>
+<div ng-class="{ 'd-none': vm.loading }">
+    <button type="button" class="btn btn-primary" style="width: 120px;" ng-click="vm.doAdd()">
+        <i class="bi-plus"></i> Add Todo
+    </button>
+    <table class="table table-default">
+        <thead>
+            <tr>
+                <th ng-repeat="(i, col) in vm.columns" scope="col">{{ col.text }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="(j, row) in vm.rows">
+                <th scope="row">{{ ((vm.getPage() - 1) * 10) + j + 1 }}</th>
+                <td>{{ row.title }}</td>
+                <td>
+                    <input type="checkbox" ng-model="row.completed">
+                </td>
+                <td align="center">
+                    <span class="cursor-pointer mr-2" ng-click="vm.doEdit(row.id)">
+                        <i class="bi-pencil-square"></i>
+                    </span>
+                    <span class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#todo-remove-modal" ng-click="vm.doRemove(row.id)">
+                        <i class="bi-trash"></i>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link cursor-pointer" ng-click="vm.handlePrevious()">Previous</a></li>
+            <li class="page-item"><a class="page-link cursor-pointer" ng-click="vm.handleNext()">Next</a></li>
+        </ul>
+    </nav>    
+</div>
 <modal-custom id="todo-remove" remove-id="{{ vm.idRemove }}" title="Remove Todo"></modal-custom>

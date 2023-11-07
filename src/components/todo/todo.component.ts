@@ -5,6 +5,7 @@ namespace App
     class TodoController implements angular.IOnInit
     {
         static $inject = ['$location', 'TodoService']
+        public loading = true
         public columns = [
             { id: 'number', text: '#' },
             { id: 'title', text: 'Title' },
@@ -31,9 +32,11 @@ namespace App
         getData() 
         {
             this.rows.length = 0;
+            this.loading = true
             this.todoSrv.GetByParams({ page: this.page, limit: 10 }).then((result) => {
                 const data = result?.data || []
                 this.rows = data
+                this.loading = false
             })
         }
 
