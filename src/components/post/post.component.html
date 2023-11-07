@@ -6,7 +6,7 @@
     </thead>
     <tbody>
         <tr ng-repeat="(j, row) in vm.rows">
-            <th scope="row">{{ j + 1 }}</th>
+            <th scope="row">{{ ((vm.getPage() - 1) * 10) + j + 1 }}</th>
             <td>{{ row.title }}</td>
         </tr>
     </tbody>
@@ -14,7 +14,7 @@
 <br>
 <nav aria-label="Page navigation example">
     <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        <li class="page-item"><a class="page-link cursor-pointer" ng-click="vm.handlePrevious()">Previous</a></li>
+        <li class="page-item"><a class="page-link cursor-pointer" ng-click="vm.handleNext()">Next</a></li>
     </ul>
 </nav>

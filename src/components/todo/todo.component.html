@@ -6,7 +6,7 @@
     </thead>
     <tbody>
         <tr ng-repeat="(j, row) in vm.rows">
-            <th scope="row">{{ j + 1 }}</th>
+            <th scope="row">{{ ((vm.getPage() - 1) * 10) + j + 1 }}</th>
             <td>{{ row.title }}</td>
             <td>
                 <input type="checkbox" ng-model="row.completed">

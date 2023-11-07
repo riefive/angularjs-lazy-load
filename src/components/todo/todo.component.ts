@@ -23,11 +23,13 @@ namespace App
             this.$onInit()
         }
 
-        $onInit(): void {
+        $onInit(): void 
+        {
             this.getData()
         }
 
-        getData() {
+        getData() 
+        {
             this.rows.length = 0;
             this.todoSrv.GetByParams({ page: this.page, limit: 10 }).then((result) => {
                 const data = result?.data || []
@@ -38,12 +40,19 @@ namespace App
             })
         }
 
-        handlePrevious() {
+        getPage()
+        {
+            return this.page
+        }
+
+        handlePrevious() 
+        {
             this.page--;
             this.getData()
         }
 
-        handleNext() {
+        handleNext() 
+        {
             this.page++;
             this.getData()
         }

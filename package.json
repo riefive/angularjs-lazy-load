@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx http-server ./ -p 3300",
+    "start": "npx http-server ./ -c-1 -p 3100",
     "compile": "npx babel --watch src --out-dir dist --extensions .ts --source-maps inline --copy-files --no-copy-ignored",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
