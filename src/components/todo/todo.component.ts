@@ -4,7 +4,7 @@ namespace App
 
     class TodoController implements angular.IOnInit
     {
-        static $inject = ['$location', 'TodoService', 'TaskCService']
+        static $inject = ['$location', 'TodoService']
         public columns = [
             { id: 'number', text: '#' },
             { id: 'title', text: 'Title' },
@@ -12,13 +12,12 @@ namespace App
             { id: 'action', text: '' }
         ]
         public rows: any = []
-        public data: any = []
+        public idRemove: number = 0
         private page = 1
 
         constructor(
             private location: angular.ILocationService,
-            private todoSrv: TodoService,
-            private taskCSrv: TaskCService
+            private todoSrv: TodoService
         )
         {
             this.$onInit()
@@ -35,9 +34,6 @@ namespace App
             this.todoSrv.GetByParams({ page: this.page, limit: 10 }).then((result) => {
                 const data = result?.data || []
                 this.rows = data
-            })
-            this.taskCSrv.GetAll().then((result) => {
-                this.data = result
             })
         }
 
@@ -71,6 +67,11 @@ namespace App
         doEdit(id: number)
         {
             this.handleNavigate(`/todo/${id}`)
+        }
+
+        doRemove(id: number)
+        {
+            this.idRemove = id
         }
     }
 

@@ -13,7 +13,6 @@ namespace App
             { id: 'address', text: 'Address' }
         ]
         public rows: any = []
-        public data: any = []
         private page = 1
 
         constructor(

@@ -6,7 +6,7 @@
 namespace App 
 {
     const mainName = 'MyApp'
-    const ng = angular.module(mainName, ['ng', 'ngRoute', 'AuthServiceModule'])
+    const ng = angular.module(mainName, ['ng', 'ngRoute', 'AuthServiceModule', 'ModalModule'])
 
     angular.module = (name, require, configFn) => {
         if (name == mainName) return ng;

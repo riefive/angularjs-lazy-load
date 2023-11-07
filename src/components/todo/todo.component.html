@@ -18,7 +18,7 @@
                 <span class="cursor-pointer mr-2" ng-click="vm.doEdit(row.id)">
                     <i class="bi-pencil-square"></i>
                 </span>
-                <span class="cursor-pointer">
+                <span class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#todo-remove-modal" ng-click="vm.doRemove(row.id)">
                     <i class="bi-trash"></i>
                 </span>
             </td>
@@ -31,3 +31,4 @@
         <li class="page-item"><a class="page-link cursor-pointer" ng-click="vm.handleNext()">Next</a></li>
     </ul>
 </nav>
+<modal-custom id="todo-remove" remove-id="{{ vm.idRemove }}" title="Remove Todo"></modal-custom>

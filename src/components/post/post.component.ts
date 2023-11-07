@@ -11,7 +11,7 @@ namespace App
             { id: 'action', text: '' }
         ]
         public rows: any = []
-        public data: any = []
+        public idRemove: number = 0
         private page = 1
 
         constructor(
@@ -66,6 +66,11 @@ namespace App
         doEdit(id: number)
         {
             this.handleNavigate(`/post/${id}`)
+        }
+
+        doRemove(id: number)
+        {
+            this.idRemove = id
         }
     }
 
