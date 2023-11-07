@@ -18,7 +18,8 @@ namespace App
         static $inject = ['$scope', '$rootScope', '$location', '$http', 'lazyService', 'AuthService']
         public title: string = ''
         public menuActive: string = 'home'
-        public menus: any[] = [
+        public menus: any[] = []
+        public menusRaw: any[] = [
             { id: 'home', icon: 'bi-house', text: 'Main', path: '' },
             { id: 'todo', icon: 'bi-grid', text: 'Todo List', path: 'todo' },
             { id: 'post', icon: 'bi-grid', text: 'Post List', path: 'post' },
@@ -45,9 +46,7 @@ namespace App
         public beforeEnterPage()
         {
             const isShowError = false;
-            if (this.isLoggedIn()) {
-                this.menus = this.menus.filter((item) => item.id !== 'login')
-            }
+            this.setMenu()
             this.scope.$on('$routeChangeStart', (
                 angularEvent: angular.IAngularEvent, 
                 newUrl?: angular.route.IRoute
@@ -90,6 +89,14 @@ namespace App
             });
         }
 
+        private setMenu()
+        {
+            if (this.isLoggedIn()) {
+                this.menus = this.menusRaw.filter((item) => item.id !== 'login')
+            } else {
+                this.menus = this.menusRaw
+            }
+        }
 
         public isLoggedIn()
         {
@@ -100,6 +107,8 @@ namespace App
         {
             this.authSrv.logout().then(d => {
                 alert('User logged out');
+                this.setMenu();
+                this.location.path('/')
             });
         }
 
@@ -134,7 +143,8 @@ namespace App
             .when('/task-b', lz.resolve('taskBPage', 'task-b' , ['task-b'], { requiredAuth: true }))
             .when('/task-c', lz.resolve('taskCPage', 'task-c' , ['task-c'], { requiredAuth: true, roles: ['admin'] }))
             .when('/post', lz.resolve('postPage', 'post' , ['post'], { requiredAuth: true, roles: ['admin'], title: 'Post List' }))
-            .when('/todo', lz.resolve('todoPage', 'todo' , ['todo', 'task-c'], { requiredAuth: true, roles: ['admin'], title: 'Todo List' }))
+            .when('/todo', lz.resolve('todoPage', 'todo' , ['todo'], { requiredAuth: true, roles: ['admin'], title: 'Todo List' }))
+            .when('/todo/:id', lz.resolve('todoIdPage', 'todo-id' , ['todo'], { requiredAuth: true, roles: ['admin'], title: 'Todo Detail' }))
             .when('/user', lz.resolve('userPage', 'user' , ['user'], { requiredAuth: true, roles: ['admin'], title: 'User List' }))
             .when('/login', lz.resolve('loginPage', 'login'))
     }

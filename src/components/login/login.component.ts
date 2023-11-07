@@ -35,7 +35,7 @@ namespace App
             return this.authSrv.login(this.form.user, this.form.password)
             .then(d => {
                 console.log('logged in')
-                this.location.path('/task-a');
+                this.location.path('/');
             });
         }
     }

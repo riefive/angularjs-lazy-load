@@ -8,7 +8,8 @@ namespace App
         public columns = [
             { id: 'number', text: '#' },
             { id: 'title', text: 'Title' },
-            { id: 'completed', text: 'Completed' }
+            { id: 'completed', text: 'Completed' },
+            { id: 'action', text: '' }
         ]
         public rows: any = []
         public data: any = []
@@ -55,6 +56,21 @@ namespace App
         {
             this.page++;
             this.getData()
+        }
+
+        handleNavigate(path: string)
+        {
+            this.location.path(path)
+        }
+
+        doAdd()
+        {
+            this.handleNavigate('/todo/add')
+        }
+
+        doEdit(id: number)
+        {
+            this.handleNavigate(`/todo/${id}`)
         }
     }
 
