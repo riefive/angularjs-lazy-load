@@ -18,7 +18,7 @@
                 <th scope="row">{{ ((vm.getPage() - 1) * 10) + j + 1 }}</th>
                 <td>{{ row.title }}</td>
                 <td>
-                    <input type="checkbox" ng-model="row.completed">
+                    <input type="checkbox" ng-model="row.completed" disabled>
                 </td>
                 <td align="center">
                     <span class="cursor-pointer mr-2" ng-click="vm.doEdit(row.id)">
