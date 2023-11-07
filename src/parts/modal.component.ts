@@ -9,7 +9,17 @@ namespace App
     {
         constructor(private scope: angular.IScope)
         {
-            console.log(this.scope?.vm)
+        }
+
+        doRemove()
+        {
+            const vm = this.scope.vm || null
+            if (!vm) return
+            this.scope.$emit('removeEvent', { id: vm.id, removeId: vm.removeId });
+            if (!document) return 
+            let myModalEl = document.getElementById(`${vm.id}-modal`)
+            let modal = (window as any).bootstrap.Modal.getInstance(myModalEl)
+            modal.hide()
         }
     }
 

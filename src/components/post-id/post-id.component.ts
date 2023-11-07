@@ -64,6 +64,11 @@ namespace App
             return formCurrent.$error[type] != null && formCurrent.$invalid && formCurrent.$touched;
         }
 
+        public doBack()
+        {
+            this.location.path('/post')
+        }
+
         public doSave()
         {   
             if (this.getForm().$invalid) return;

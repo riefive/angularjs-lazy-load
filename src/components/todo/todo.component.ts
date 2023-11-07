@@ -4,7 +4,7 @@ namespace App
 
     class TodoController implements angular.IOnInit
     {
-        static $inject = ['$location', 'TodoService']
+        static $inject = ['$scope', '$location', 'TodoService']
         public loading = true
         public columns = [
             { id: 'number', text: '#' },
@@ -17,6 +17,7 @@ namespace App
         private page = 1
 
         constructor(
+            private scope: angular.IScope,
             private location: angular.ILocationService,
             private todoSrv: TodoService
         )
@@ -26,7 +27,12 @@ namespace App
 
         $onInit(): void 
         {
+            const self = this
             this.getData()
+            this.scope.$on('removeEvent', function (event, args) {
+               const id = args.removeId || 0
+               self.handleRemove(id)
+            });
         }
 
         getData() 
@@ -60,6 +66,17 @@ namespace App
         handleNavigate(path: string)
         {
             this.location.path(path)
+        }
+
+        handleRemove(id: number)
+        {
+            if (Number(id) !== Number(this.idRemove)) return
+            this.loading = true
+            this.todoSrv.Remove(this.idRemove)
+                .then((result) => {
+                    this.idRemove = 0
+                    this.loading = false
+                });
         }
 
         doAdd()
