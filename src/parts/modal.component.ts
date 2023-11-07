@@ -16,9 +16,10 @@ namespace App
             const vm = this.scope.vm || null
             if (!vm) return
             this.scope.$emit('removeEvent', { id: vm.id, removeId: vm.removeId });
-            if (!document) return 
+            let bootstrap = (window as any).bootstrap
+            if (!document || !bootstrap) return 
             let myModalEl = document.getElementById(`${vm.id}-modal`)
-            let modal = (window as any).bootstrap.Modal.getInstance(myModalEl)
+            let modal = bootstrap.Modal.getInstance(myModalEl)
             modal.hide()
         }
     }
