@@ -11,17 +11,12 @@ require('jest');
 
 let providers = angular.module('MyApp', []);
 (providers as any).lazy = {
-    controller: providers.controller,
-    provider: providers.provider,
-    factory: providers.factory,
-    service: providers.service,
-    config: providers.config,
-    module: providers
+    factory: providers.factory
 }
 
 require('./task-a.service');
 
-describe('TaskAService Test', () => {
+describe('TaskA Service Test', () => {
     const module = angular.mock.module;
     const inject = angular.mock.inject;
     let service: App.TaskAService;
@@ -43,11 +38,11 @@ describe('TaskAService Test', () => {
         );
     });
 
-    it('TaskAService should be created', () => {
+    it('TaskA Service should be created', () => {
         expect(service).toBeDefined();
     });
 
-    it('TaskAService get all', (done) => {
+    it('TaskA Service get all', (done) => {
         service.GetAll().then((result: any) => {
             expect(result.length).toBe(5)
             expect(result[0].id).toEqual('task-1-a')

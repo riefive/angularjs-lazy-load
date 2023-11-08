@@ -11,20 +11,15 @@ require('jest');
 
 let providers = angular.module('MyApp', []);
 (providers as any).lazy = {
-    controller: providers.controller,
-    provider: providers.provider,
-    factory: providers.factory,
-    service: providers.service,
-    config: providers.config,
-    module: providers
+    factory: providers.factory
 }
 
 require('./task-c.service');
 
-describe('TaskCService Test', () => {
+describe('TaskC Service Test', () => {
     const module = angular.mock.module;
     const inject = angular.mock.inject;
-    let service: App.TaskAService;
+    let service: App.TaskCService;
     let rootScope: angular.IRootScopeService;
 
     beforeEach(() => {
@@ -43,11 +38,11 @@ describe('TaskCService Test', () => {
         );
     });
 
-    it('TaskCService should be created', () => {
+    it('TaskC Service should be created', () => {
         expect(service).toBeDefined();
     });
 
-    it('TaskCService get all', (done) => {
+    it('TaskC Service get all', (done) => {
         service.GetAll().then((result: any) => {
             expect(result.length).toBe(5)
             expect(result[0].id).toEqual('task-1-c')
