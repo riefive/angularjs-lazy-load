@@ -43,6 +43,7 @@ namespace App
                 date.setMonth(date.getMonth() + 1);
                 this.cookie.put('user', user, { expires: date });
                 this.cookie.put('role', JSON.stringify(role), { expires: date });
+                return d;
             });
         }
 
@@ -53,6 +54,7 @@ namespace App
                 this.setUser('');
                 this.cookie.remove('user');
                 this.cookie.remove('role');
+                return d;
             });
         }
 

@@ -4,7 +4,7 @@ namespace App
 
     class PostController implements angular.IOnInit
     {
-        static $inject = ['$scope', '$location', 'TodoService']
+        static $inject = ['$scope', '$location', 'PostService']
         public loading = true
         public columns = [
             { id: 'number', text: '#' },

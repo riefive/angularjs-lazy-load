@@ -15,7 +15,6 @@ namespace App
             private authSrv: any, 
         )
         {
-            // console.log('Status Login : ', authSrv.isLogedIn());
         }
 
         public getForm()
@@ -33,10 +32,10 @@ namespace App
         {   
             if (this.getForm().$invalid) return;
             return this.authSrv.login(this.form.user, this.form.password)
-            .then(d => {
-                console.log('logged in')
-                this.location.path('/');
-            });
+                .then((result: any) => {
+                    this.location.path('/');
+                    return result;
+                });
         }
     }
 

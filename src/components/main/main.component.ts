@@ -2,15 +2,14 @@ namespace App
 {
     let ng = angular.module('MyApp').lazy;
 
-    class MainPage implements angular.IOnInit
+    export class MainPage implements angular.IOnInit
     {
-        static $inject = ['$location', 'TaskAService', 'TaskBService', 'TaskCService']
+        static $inject = ['TaskAService', 'TaskBService', 'TaskCService']
         public dataA: any = []
         public dataB: any = []
         public dataC: any = []
 
         constructor(
-            private location: angular.ILocationService,
             private taskASrv: TaskAService,
             private taskBSrv: TaskBService,
             private taskCSrv: TaskCService,
@@ -21,6 +20,14 @@ namespace App
 
         $onInit(): void 
         {
+            this.getData()
+        }
+
+        getData()
+        {
+            this.dataA = [];
+            this.dataB = [];
+            this.dataC = [];
             this.taskASrv.GetAll().then((result) => {
                 this.dataA = result
             })

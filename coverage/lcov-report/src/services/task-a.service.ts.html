@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/10</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/10</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -100,14 +100,13 @@
 <a name='L35'></a><a href='#L35'>35</a>
 <a name='L36'></a><a href='#L36'>36</a>
 <a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a>
-<a name='L39'></a><a href='#L39'>39</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -121,19 +120,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -145,7 +143,7 @@
 &nbsp;
     export class TaskAService 
     {
-        private data = <span class="cstat-no" title="statement not covered" >[</span>
+        private data = [
             { id: 'task-1-a', name: 'Task 1A' },
             { id: 'task-2-a', name: 'Task 2A' },
             { id: 'task-3-a', name: 'Task 3A' },
@@ -153,25 +151,24 @@
             { id: 'task-5-a', name: 'Task 5A' }
         ]
 &nbsp;
-<span class="fstat-no" title="function not covered" >        co</span>nstructor(private q: angular.IQService) 
+        constructor(private q: angular.IQService) 
         {
         }
 &nbsp;
-<span class="fstat-no" title="function not covered" >        Ge</span>tAll()
+        GetAll()
         {
-            var deferred = <span class="cstat-no" title="statement not covered" >this.q.defer();</span>
-            var promise = <span class="cstat-no" title="statement not covered" >deferred.promise;</span>
+            var deferred = this.q.defer();
+            var promise = deferred.promise;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            setTimeout(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                deferred.resolve(this.data)</span>
+            setTimeout(() =&gt; {
+                deferred.resolve(this.data)
             }, 150)
-&nbsp;
-<span class="cstat-no" title="statement not covered" >            return promise</span>
+            return promise
         }
 &nbsp;
-<span class="fstat-no" title="function not covered" >        st</span>atic Factory(q: angular.IQService)
+        static Factory(q: angular.IQService)
         {
-<span class="cstat-no" title="statement not covered" >            return new TaskAService(q);</span>
+            return new TaskAService(q);
         }
     }
 &nbsp;
@@ -184,7 +181,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-11-08T03:18:44.877Z
+                at 2023-11-08T04:41:17.100Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
