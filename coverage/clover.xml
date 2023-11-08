@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1699415600242" clover="3.2.0">
-  <project timestamp="1699415600242" name="All files">
+<coverage generated="1699415777239" clover="3.2.0">
+  <project timestamp="1699415777239" name="All files">
     <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4" elements="14" coveredelements="14" complexity="0" loc="10" ncloc="10" packages="1" files="1" classes="1"/>
-    <file name="task-b.service.ts" path="C:\Users\MLGLTP02\Documents\projects\salt-id\sample-angular-typicode-v1-lazy\src\services\task-b.service.ts">
+    <file name="task-c.service.ts" path="C:\Users\MLGLTP02\Documents\projects\salt-id\sample-angular-typicode-v1-lazy\src\services\task-c.service.ts">
       <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
       <line num="3" count="1" type="stmt"/>
       <line num="7" count="2" type="stmt"/>
