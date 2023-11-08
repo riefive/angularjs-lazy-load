@@ -11,16 +11,22 @@ namespace App
         {
         }
 
-        doRemove()
+        public getId()
         {
-            const vm = this.scope.vm || null
-            if (!vm) return
-            this.scope.$emit('removeEvent', { id: vm.id, removeId: vm.removeId });
-            let bootstrap = (window as any).bootstrap
-            if (!document || !bootstrap) return 
-            let myModalEl = document.getElementById(`${vm.id}-modal`)
-            let modal = bootstrap.Modal.getInstance(myModalEl)
-            modal.hide()
+            return this['id'] ?? 'hello'; 
+        }
+
+        public doRemove()
+        {
+            const vm = this.scope.vm
+            if (vm) {
+                this.scope.$emit('removeEvent', { id: vm.id, removeId: vm.removeId });
+                let bootstrap = (window as any).bootstrap
+                if (!document || !bootstrap) return 
+                let myModalEl = document.getElementById(`${vm.id}-modal`)
+                let modal = bootstrap.Modal.getInstance(myModalEl)
+                modal.hide()
+            }
         }
     }
 

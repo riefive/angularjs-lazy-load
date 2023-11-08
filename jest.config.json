@@ -1,0 +1,11 @@
+{
+    "transform": {
+        "^.+\\.ts$": "babel-jest",
+        "^.+\\.html?$": "jest-html-loader"
+    },
+    "testEnvironment": "jsdom",
+    "testPathIgnorePatterns": ["dist"],
+    "collectCoverage": true,
+    "coverageDirectory": "coverage",
+    "coverageProvider": "babel"
+}

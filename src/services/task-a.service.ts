@@ -24,7 +24,6 @@ namespace App
             setTimeout(() => {
                 deferred.resolve(this.data)
             }, 150)
-
             return promise
         }
 
