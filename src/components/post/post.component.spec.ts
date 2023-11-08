@@ -84,4 +84,27 @@ describe('Post Controller Test', () => {
         expect(component.getPage()).toEqual(2);
         expect(spyOnNextThen).toHaveBeenCalled();
     });
+
+    it('Post handle doAdd', () => {
+        const spyOnAddThen = spyOn(component, 'doAdd');
+        component.doAdd();
+        expect(location.path()).toEqual('/post/add');
+        expect(spyOnAddThen).toHaveBeenCalled();
+    });
+
+    it('Post handle doEdit', () => {
+        const id = 5
+        const spyOnEditThen = spyOn(component, 'doEdit');
+        component.doEdit(id);
+        expect(location.path()).toEqual(`/post/${id}`);
+        expect(spyOnEditThen).toHaveBeenCalled();
+    });
+
+    it('Post handle doRemove', () => {
+        const id = 5
+        const spyOnRemoveThen = spyOn(component, 'doRemove');
+        component.doRemove(id);
+        expect(component.idRemove).toEqual(id);
+        expect(spyOnRemoveThen).toHaveBeenCalled();
+    });
 });

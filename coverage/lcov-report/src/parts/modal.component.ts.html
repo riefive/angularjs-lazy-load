@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.57% </span>
+                <span class="strong">28.57% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/14</span>
+                <span class='fraction'>4/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/8</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.92% </span>
+                <span class="strong">30.76% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/13</span>
+                <span class='fraction'>4/13</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -123,16 +123,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -162,22 +162,22 @@ namespace App
 &nbsp;
     export class ModalComponent implements angular.IController 
     {
-        constructor(private scope: angular.IScope)
+<span class="fstat-no" title="function not covered" >        co</span>nstructor(private scope: angular.IScope)
         {
         }
 &nbsp;
-        public getId()
+<span class="fstat-no" title="function not covered" >        pu</span>blic getId()
         {
-            return this['id'] ?? 'hello'; 
+<span class="cstat-no" title="statement not covered" >            return this['id'] ?? 'hello'; </span>
         }
 &nbsp;
-        public doRemove()
+<span class="fstat-no" title="function not covered" >        pu</span>blic doRemove()
         {
-            const vm = this.scope.vm
-            <span class="missing-if-branch" title="else path not taken" >E</span>if (vm) {
-                this.scope.$emit('removeEvent', { id: vm.id, removeId: vm.removeId });
-                let bootstrap = (window as any).bootstrap
-                <span class="missing-if-branch" title="else path not taken" >E</span>if (!document || !bootstrap) return 
+            const vm = <span class="cstat-no" title="statement not covered" >this.scope.vm</span>
+<span class="cstat-no" title="statement not covered" >            if (vm) {</span>
+<span class="cstat-no" title="statement not covered" >                this.scope.$emit('removeEvent', { id: vm.id, removeId: vm.removeId });</span>
+                let bootstrap = <span class="cstat-no" title="statement not covered" >(window as any).bootstrap</span>
+<span class="cstat-no" title="statement not covered" >                if (!document || !bootstrap) <span class="cstat-no" title="statement not covered" >return </span></span>
                 let myModalEl = <span class="cstat-no" title="statement not covered" >document.getElementById(`${vm.id}-modal`)</span>
                 let modal = <span class="cstat-no" title="statement not covered" >bootstrap.Modal.getInstance(myModalEl)</span>
 <span class="cstat-no" title="statement not covered" >                modal.hide()</span>
@@ -205,7 +205,7 @@ namespace App
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-11-08T04:41:17.100Z
+                at 2023-11-08T10:17:08.918Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

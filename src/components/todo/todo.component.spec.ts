@@ -9,7 +9,7 @@ require('angular-cookies');
 require('angular-mocks/ngMockE2E');
 require('jest');
 
-let providers = angular.module('MyApp', ['ng', 'ngRoute']);
+let providers = angular.module('MyApp', ['ng', 'ngRoute', 'AuthServiceModule', 'ModalModule']);
 (providers as any).lazy = {
     controller: providers.controller,
     provider: providers.provider,
@@ -20,6 +20,8 @@ let providers = angular.module('MyApp', ['ng', 'ngRoute']);
 }
 
 require('../../config');
+require('../../parts/modal.component');
+require('../../services/auth.service');
 require('../../services/todo.service');
 require('./todo.component');
 let htmlTemplate = require('./todo.component.html');
@@ -46,7 +48,8 @@ describe('Todo Controller Test', () => {
                 $componentController: angular.IComponentControllerService,
                 $compile: angular.ICompileService, 
                 $location: angular.ILocationService,
-                $httpBackend: angular.IHttpBackendService
+                $httpBackend: angular.IHttpBackendService,
+                TodoService: App.TodoService
             )
             {
                 $httpBackend.whenPOST(/\/*/).passThrough();
@@ -58,8 +61,7 @@ describe('Todo Controller Test', () => {
                 location = $location;
                 el = angular.element(`${htmlTemplate}`);
                 $compile(el)(scope);
-                const injector = angular.injector(['MyApp', 'ng', 'ngMock']);
-                srv = injector.get('TodoService');
+                srv = TodoService;
                 scope.$apply();
         });
         component = ctrl('todoPage', { $scope: scope, $location: location, TodoService: srv });
@@ -84,4 +86,37 @@ describe('Todo Controller Test', () => {
         expect(component.getPage()).toEqual(2);
         expect(spyOnNextThen).toHaveBeenCalled();
     });
+
+    it('Todo handle doAdd', () => {
+        const spyOnAddThen = spyOn(component, 'doAdd');
+        component.doAdd();
+        expect(location.path()).toEqual('/todo/add');
+        expect(spyOnAddThen).toHaveBeenCalled();
+    });
+
+    it('Todo handle doEdit', () => {
+        const id = 5
+        const spyOnEditThen = spyOn(component, 'doEdit');
+        component.doEdit(id);
+        expect(location.path()).toEqual(`/todo/${id}`);
+        expect(spyOnEditThen).toHaveBeenCalled();
+    });
+
+    it('Todo handle doRemove', () => {
+        const id = 5
+        const spyOnRemoveThen = spyOn(component, 'doRemove');
+        component.doRemove(id);
+        expect(component.idRemove).toEqual(id);
+        expect(spyOnRemoveThen).toHaveBeenCalled();
+    });
+
+    it('Todo handle getData', () => {
+        const spyOnDataThen = spyOn(component, 'getData');
+        rootScope.$digest();
+        component.getData().then((result: any) => {
+            expect((result as any)).not.toBeNull();
+            expect(spyOnDataThen).toHaveBeenCalled();
+            return result;
+        });
+    }, 5000);
 });

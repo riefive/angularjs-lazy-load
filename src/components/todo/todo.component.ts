@@ -39,10 +39,11 @@ namespace App
         {
             this.rows.length = 0;
             this.loading = true
-            this.todoSrv.GetByParams({ page: this.page, limit: 10 }).then((result) => {
+            return this.todoSrv.GetByParams({ page: this.page, limit: 10 }).then((result) => {
                 const data = result?.data || []
                 this.rows = data
                 this.loading = false
+                return data;
             })
         }
 
