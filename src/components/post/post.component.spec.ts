@@ -9,7 +9,7 @@ require('angular-cookies');
 require('angular-mocks/ngMockE2E');
 require('jest');
 
-let providers = angular.module('MyApp', ['ng', 'ngRoute']);
+let providers = angular.module('MyApp', ['ng', 'ngRoute', 'ModalModule']);
 (providers as any).lazy = {
     controller: providers.controller,
     provider: providers.provider,
@@ -20,6 +20,7 @@ let providers = angular.module('MyApp', ['ng', 'ngRoute']);
 }
 
 require('../../config');
+require('../../parts/modal.component');
 require('../../services/post.service');
 require('./post.component');
 let htmlTemplate = require('./post.component.html');
@@ -29,7 +30,6 @@ describe('Post Controller Test', () => {
     const inject = angular.mock.inject;
     const spyOn = jest.spyOn;
     let el: any;
-    let srv: App.PostService;
     let component: App.PostController;
     let scope: angular.IRootScopeService;
     let rootScope: angular.IRootScopeService;
@@ -49,8 +49,10 @@ describe('Post Controller Test', () => {
                 $httpBackend: angular.IHttpBackendService
             )
             {
+                $httpBackend.whenGET('/dist/parts/modal.component.html').respond(require('../../parts/modal.component.html'));
                 $httpBackend.whenPOST(/\/*/).passThrough();
                 $httpBackend.whenGET(/\/*/).passThrough();
+
                 ctrl = $controller;
                 cmpnt = $componentController
                 rootScope = $rootScope;
@@ -58,11 +60,9 @@ describe('Post Controller Test', () => {
                 location = $location;
                 el = angular.element(`${htmlTemplate}`);
                 $compile(el)(scope);
-                const injector = angular.injector(['MyApp', 'ng', 'ngMock']);
-                srv = injector.get('PostService');
                 scope.$apply();
         });
-        component = ctrl('postPage', { $scope: scope, $location: location, PostService: srv });
+        component = ctrl('postPage', { $scope: scope });
     });
 
     it('Post page should be created', () => {
@@ -107,4 +107,15 @@ describe('Post Controller Test', () => {
         expect(component.idRemove).toEqual(id);
         expect(spyOnRemoveThen).toHaveBeenCalled();
     });
+
+    it('Post handle getData', async () => {
+        const spyOnDataThen = spyOn(component, 'getData');
+        rootScope.$digest();
+        return component.getData().then((result: any) => {
+            expect((result as any)).not.toBeNull();
+            expect((result as any).length).toEqual(10);
+            expect(spyOnDataThen).toHaveBeenCalled();
+            return result;
+        });
+    }, 5000);
 });

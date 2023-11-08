@@ -9,7 +9,7 @@ require('angular-cookies');
 require('angular-mocks/ngMockE2E');
 require('jest');
 
-let providers = angular.module('MyApp', ['ng', 'ngRoute', 'AuthServiceModule', 'ModalModule']);
+let providers = angular.module('MyApp', ['ng', 'ngRoute', 'ModalModule']);
 (providers as any).lazy = {
     controller: providers.controller,
     provider: providers.provider,
@@ -21,7 +21,6 @@ let providers = angular.module('MyApp', ['ng', 'ngRoute', 'AuthServiceModule', '
 
 require('../../config');
 require('../../parts/modal.component');
-require('../../services/auth.service');
 require('../../services/todo.service');
 require('./todo.component');
 let htmlTemplate = require('./todo.component.html');
@@ -31,7 +30,6 @@ describe('Todo Controller Test', () => {
     const inject = angular.mock.inject;
     const spyOn = jest.spyOn;
     let el: any;
-    let srv: App.TodoService;
     let component: App.TodoController;
     let scope: angular.IRootScopeService;
     let rootScope: angular.IRootScopeService;
@@ -48,12 +46,13 @@ describe('Todo Controller Test', () => {
                 $componentController: angular.IComponentControllerService,
                 $compile: angular.ICompileService, 
                 $location: angular.ILocationService,
-                $httpBackend: angular.IHttpBackendService,
-                TodoService: App.TodoService
+                $httpBackend: angular.IHttpBackendService
             )
             {
-                $httpBackend.whenPOST(/\/*/).passThrough();
+                $httpBackend.whenGET('/dist/parts/modal.component.html').respond(require('../../parts/modal.component.html'));
                 $httpBackend.whenGET(/\/*/).passThrough();
+                $httpBackend.whenPOST(/\/*/).passThrough();
+
                 ctrl = $controller;
                 cmpnt = $componentController
                 rootScope = $rootScope;
@@ -61,10 +60,9 @@ describe('Todo Controller Test', () => {
                 location = $location;
                 el = angular.element(`${htmlTemplate}`);
                 $compile(el)(scope);
-                srv = TodoService;
                 scope.$apply();
         });
-        component = ctrl('todoPage', { $scope: scope, $location: location, TodoService: srv });
+        component = ctrl('todoPage', { $scope: scope });
     });
 
     it('Todo page should be created', () => {
@@ -110,11 +108,12 @@ describe('Todo Controller Test', () => {
         expect(spyOnRemoveThen).toHaveBeenCalled();
     });
 
-    it('Todo handle getData', () => {
+    it('Todo handle getData', async () => {
         const spyOnDataThen = spyOn(component, 'getData');
         rootScope.$digest();
-        component.getData().then((result: any) => {
+        return component.getData().then((result: any) => {
             expect((result as any)).not.toBeNull();
+            expect((result as any).length).toEqual(10);
             expect(spyOnDataThen).toHaveBeenCalled();
             return result;
         });

@@ -38,10 +38,11 @@ namespace App
         {
             this.rows.length = 0;
             this.loading = true
-            this.postSrv.GetByParams({ page: this.page, limit: 10 }).then((result) => {
-                const data = result?.data || []
-                this.rows = data
-                this.loading = false
+            return this.postSrv.GetByParams({ page: this.page, limit: 10 }).then((result) => {
+                const data = result?.data || [];
+                this.rows = data;
+                this.loading = false;
+                return data;
             })
         }
 
