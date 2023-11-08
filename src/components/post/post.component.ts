@@ -2,7 +2,7 @@ namespace App
 {
     let ng = angular.module('MyApp').lazy;
 
-    class PostController implements angular.IOnInit
+    export class PostController implements angular.IOnInit
     {
         static $inject = ['$scope', '$location', 'PostService']
         public loading = true
@@ -13,7 +13,7 @@ namespace App
         ]
         public rows: any = []
         public idRemove: number = 0
-        private page = 1
+        public page = 1
 
         constructor(
             private scope: angular.IScope,

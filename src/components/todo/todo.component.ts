@@ -2,7 +2,7 @@ namespace App
 {
     let ng = angular.module('MyApp').lazy;
 
-    class TodoController implements angular.IOnInit
+    export class TodoController implements angular.IOnInit
     {
         static $inject = ['$scope', '$location', 'TodoService']
         public loading = true
@@ -14,7 +14,7 @@ namespace App
         ]
         public rows: any = []
         public idRemove: number = 0
-        private page = 1
+        public page = 1
 
         constructor(
             private scope: angular.IScope,

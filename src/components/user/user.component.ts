@@ -2,7 +2,7 @@ namespace App
 {
     let ng = angular.module('MyApp').lazy;
 
-    class UserController implements angular.IOnInit
+    export class UserController implements angular.IOnInit
     {
         static $inject = ['$location', 'UserService']
         public loading = true
@@ -14,7 +14,7 @@ namespace App
             { id: 'address', text: 'Address' }
         ]
         public rows: any = []
-        private page = 1
+        public page = 1
 
         constructor(
             private location: angular.ILocationService,
