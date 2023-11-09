@@ -1,6 +1,7 @@
 import angular = require('angular');
 
 (window.jasmine as any) = jest;
+window.alert = (_str) => {};
 export {};
 
 require('angular');

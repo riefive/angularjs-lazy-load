@@ -29,33 +29,38 @@ namespace App
 
         public getParams()
         {
-            const urlFulltext = this.location.absUrl()
-            const splitters = urlFulltext.split('/')
-            let params = []
-            if (Array.isArray(splitters) && splitters.length == 5)
+            const pathFulltext = this.location.path();
+            const splitters = pathFulltext.split('/');
+            let params = [];
+            if (Array.isArray(splitters) && splitters.length == 3)
             {
-                params = splitters.slice(3)
+                params = splitters.slice(1);
             }
             if (params.length > 1)
             {
-                this.idNumber = Number(params[1]) > 0 ? Number(params[1]) : 0
-                this.typeSave = Number(params[1]) > 0 ? 'edit' : 'add'
+                this.idNumber = Number(params[1]) > 0 ? Number(params[1]) : 0;
+                this.typeSave = Number(params[1]) > 0 ? 'edit' : 'add';
             }
             if (this.typeSave === 'edit')
             {
-                this.loading = true
-                this.postSrv.GetOne(this.idNumber).then((result) => {
-                    if (result.data) {
-                        this.form.title = result.data?.title || ''
-                        this.form.body = result.data?.body || ''
-                    }
-                    this.loading = false
-                })
+                this.loading = true;
+                return new Promise((resolve) => {
+                    this.postSrv.GetOne(this.idNumber).then((result) => {
+                        if (!result.data) {
+                           return resolve(false);
+                        }
+                        this.form.title = result.data?.title;
+                        this.form.body = result.data?.body;
+                        this.loading = false;
+                        resolve(true);
+                    });
+                });
             } 
             else 
             {
-                this.loading = false
-            }
+                this.loading = false;
+                return Promise.resolve(true);
+            }   
         }
 
         public isInvalid(field: string, type: string): boolean
@@ -71,30 +76,32 @@ namespace App
 
         public doSave()
         {   
-            if (this.getForm().$invalid) return;
-            this.loading = true
-            if (this.typeSave === 'add') 
-            {
-                this.postSrv.Insert({ title: this.form.title, body: this.form.body })
-                    .then((result) => {
-                        alert('Berhasil menyimpan ' + JSON.stringify(result.data || ''))
-                        this.loading = false
-                        this.location.path('/todo');
-                    });
-            }
-            else if (this.typeSave === 'edit')
-            {
-                this.postSrv.Update(this.idNumber, { title: this.form.title, body: this.form.body })
-                    .then((result) => {
-                        alert('Berhasil mengubah ' + JSON.stringify(result.data || ''))
-                        this.loading = false
-                        this.location.path('/todo');
-                    });
-            } 
-            else
-            {
-                this.loading = false
-            }
+            return new Promise((resolve) => {
+                if (this.getForm().$invalid) {
+                    resolve(false);
+                } else if (this.typeSave === 'add') {
+                    this.loading = true;
+                    this.postSrv.Insert({ title: this.form.title, body: this.form.body })
+                        .then((result) => {
+                            alert('Berhasil menyimpan ' + JSON.stringify(result.data || ''));
+                            this.loading = false;
+                            this.location.path('/post');
+                            resolve(result);
+                        });
+                } else if (this.typeSave === 'edit') {
+                    this.loading = true;
+                    this.postSrv.Update(this.idNumber, { title: this.form.title, body: this.form.body })
+                        .then((result) => {
+                            alert('Berhasil mengubah ' + JSON.stringify(result.data || ''));
+                            this.loading = false;
+                            this.location.path('/post');
+                            resolve(result);
+                        });
+                } else {
+                    this.loading = false;
+                    resolve(false);
+                }
+            });
         }
     }
 

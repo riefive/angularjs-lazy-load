@@ -71,11 +71,11 @@ namespace App
 
         handleRemove(id: number)
         {
-            this.loading = true;
             return new Promise((resolve) => {
                 if (Number(id) !== Number(this.idRemove)) {
                     resolve(false);
                 } else {
+                    this.loading = true;
                     this.todoSrv.Remove(this.idRemove)
                         .then((result) => {
                             this.idRemove = 0;
