@@ -30,8 +30,8 @@ namespace App
             const self = this
             this.getData()
             this.scope.$on('removeEvent', function (event, args) {
-               const id = args.removeId || 0
-               self.handleRemove(id)
+               const id = args.removeId;
+               self.handleRemove(id);
             });
         }
 
@@ -71,13 +71,19 @@ namespace App
 
         handleRemove(id: number)
         {
-            if (Number(id) !== Number(this.idRemove)) return
-            this.loading = true
-            this.todoSrv.Remove(this.idRemove)
-                .then((result) => {
-                    this.idRemove = 0
-                    this.loading = false
-                });
+            this.loading = true;
+            return new Promise((resolve) => {
+                if (Number(id) !== Number(this.idRemove)) {
+                    resolve(false);
+                } else {
+                    this.todoSrv.Remove(this.idRemove)
+                        .then((result) => {
+                            this.idRemove = 0;
+                            this.loading = false;
+                            resolve(result);
+                        });
+                }
+            });
         }
 
         doAdd()

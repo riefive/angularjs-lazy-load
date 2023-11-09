@@ -82,7 +82,7 @@ namespace App
                             resolve(result);
                         });
                 }
-            })
+            });
         }
 
         doAdd()

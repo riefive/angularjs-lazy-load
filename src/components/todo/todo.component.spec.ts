@@ -34,7 +34,6 @@ describe('Todo Controller Test', () => {
     let scope: angular.IRootScopeService;
     let rootScope: angular.IRootScopeService;
     let location: angular.ILocationService;
-    let cmpnt: angular.IComponentControllerService;
     let ctrl: angular.IControllerService;
 
     beforeEach(() => {
@@ -43,7 +42,6 @@ describe('Todo Controller Test', () => {
             function(
                 $rootScope: angular.IRootScopeService, 
                 $controller: angular.IControllerService,
-                $componentController: angular.IComponentControllerService,
                 $compile: angular.ICompileService, 
                 $location: angular.ILocationService,
                 $httpBackend: angular.IHttpBackendService
@@ -51,10 +49,9 @@ describe('Todo Controller Test', () => {
             {
                 $httpBackend.whenGET('/dist/parts/modal.component.html').respond(require('../../parts/modal.component.html'));
                 $httpBackend.whenGET(/\/*/).passThrough();
-                $httpBackend.whenPOST(/\/*/).passThrough();
+                $httpBackend.whenDELETE(/\/*/).passThrough();
 
                 ctrl = $controller;
-                cmpnt = $componentController
                 rootScope = $rootScope;
                 scope = $rootScope.$new();
                 location = $location;
@@ -117,5 +114,40 @@ describe('Todo Controller Test', () => {
             expect(spyOnDataThen).toHaveBeenCalled();
             return result;
         });
+    }, 5000);
+
+    it('Todo handle remove success', async () => {
+        const id = 5
+        component.idRemove = id
+        const spyOnDataThen = spyOn(component, 'handleRemove');
+        rootScope.$digest();
+        return component.handleRemove(id).then((result: any) => {
+            expect((result as any).status).toEqual(200);
+            expect(spyOnDataThen).toHaveBeenCalled();
+            return result;
+        });
+    }, 5000);
+
+    it('Todo handle remove failed', async () => {
+        const id = 5
+        component.idRemove = 0
+        const spyOnDataThen = spyOn(component, 'handleRemove');
+        rootScope.$digest();
+        return component.handleRemove(id).then((result: any) => {
+            expect((result as any)).not.toBeTruthy();
+            expect(spyOnDataThen).toHaveBeenCalled();
+            return result;
+        });
+    }, 5000);
+
+    it('Todo handle on emit remove', (done) => {
+        const id = 5
+        rootScope.$digest();
+        scope.$emit('removeEvent', { id: 'todo-remove', removeId: id });
+        setTimeout(() => {
+            expect(component.idRemove).toEqual(0);
+            expect(component.loading).toEqual(false);
+            done();
+        }, 1000)
     }, 5000);
 });
