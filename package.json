@@ -7,6 +7,7 @@
     "start": "live-server --open=.",
     "start:dev": "npx http-server ./ -c-1 -p 3100",
     "compile": "npx babel --watch src --out-dir dist --extensions .ts --source-maps inline --copy-files --no-copy-ignored",
+    "clear": "npx rimraf dist", 
     "test": "jest"
   },
   "keywords": [],
@@ -32,6 +33,7 @@
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jest-html-loader": "^1.0.0",
-    "live-server": "^1.1.0"
+    "live-server": "^1.1.0",
+    "rimraf": "^5.0.5"
   }
 }
