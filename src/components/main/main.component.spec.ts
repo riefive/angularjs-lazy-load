@@ -72,13 +72,13 @@ describe('Main Controller Test', () => {
         expect(component).toBeDefined();
     });
 
-    it('Main page on init', (done) => {
+    it('Main page on init', async () => {
         const spyOnInit = spyOn(component, 'getData');
-        component.getData();
-        expect(spyOnInit).toHaveBeenCalled();
         rootScope.$digest();
-        setTimeout(() => {
-            done();
-        }, 1000)
+        return component.getData().then((result) => {
+            expect((result as any)).not.toBeNull();
+            expect(spyOnInit).toHaveBeenCalled();
+            return true;
+        });
     }, 5000)
 });

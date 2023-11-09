@@ -73,8 +73,8 @@ describe('PostId Controller Test', () => {
     });
 
     it('PostId handle getForm', () => {
-        component.form = { title: '', body: '' };
         const spyGetForm = spyOn(component, 'getForm');
+        component.form = { title: '', body: '' };
         const formCurrent = component.getForm();
         expect(formCurrent).not.toBeNull();
         expect(spyGetForm).toHaveBeenCalled();
@@ -88,8 +88,8 @@ describe('PostId Controller Test', () => {
 
 
     it('PostId handle getParam with add', (done) => {
-        location.path('/post/add');
         const spyGetParam = spyOn(component, 'getParams');
+        location.path('/post/add');
         component.getParams().then((result) => {
             expect(result).toBeTruthy();
             expect(spyGetParam).toHaveBeenCalled();
@@ -98,9 +98,9 @@ describe('PostId Controller Test', () => {
     });
 
     it('PostId handle getParam with edit', (done) => {
+        const spyGetParam = spyOn(component, 'getParams');
         const id = 5
         location.path(`/post/${id}`);
-        const spyGetParam = spyOn(component, 'getParams');
         component.getParams().then((result) => {
             console.log(result)
             expect(result).toBeTruthy();
@@ -110,9 +110,9 @@ describe('PostId Controller Test', () => {
     }, 5000);
 
     it('PostId handle doSave failed', () => {
+        const spyOnSave = spyOn(component, 'doSave');
         component.form = { title: '', body: '' };
         component.getForm().$invalid = true;
-        const spyOnSave = spyOn(component, 'doSave');
         return component.doSave().then((result) => {
             expect((result as any)).not.toBeNull();
             expect(spyOnSave).toHaveBeenCalled();
@@ -121,9 +121,9 @@ describe('PostId Controller Test', () => {
     });
 
     it('PostId handle doSave type none', () => {
+        const spyOnSave = spyOn(component, 'doSave');
         component.typeSave = 'none';
         component.getForm().$invalid = false;
-        const spyOnSave = spyOn(component, 'doSave');
         return component.doSave().then((result) => {
             expect((result as any)).not.toBeTruthy();
             expect(spyOnSave).toHaveBeenCalled();
@@ -132,10 +132,10 @@ describe('PostId Controller Test', () => {
     });
 
     it('PostId handle doSave add success', (done) => {
+        const spyOnSave = spyOn(component, 'doSave');
         component.form = { title: 'Lorem ipsum', body: 'Lorem ipsum' };
         component.typeSave = 'add';
         component.getForm().$invalid = false;
-        const spyOnSave = spyOn(component, 'doSave');
         component.doSave().then((result) => {
             expect((result as any)).not.toBeNull();
             expect(spyOnSave).toHaveBeenCalled();
@@ -144,11 +144,11 @@ describe('PostId Controller Test', () => {
     }, 5000);
 
     it('PostId handle doSave edit success', (done) => {
+        const spyOnSave = spyOn(component, 'doSave');
         component.idNumber = 5;
         component.form = { title: 'Lorem ipsum', body: 'Lorem ipsum' };
         component.typeSave = 'edit';
         component.getForm().$invalid = false;
-        const spyOnSave = spyOn(component, 'doSave');
         component.doSave().then((result) => {
             expect((result as any)).not.toBeNull();
             expect(spyOnSave).toHaveBeenCalled();

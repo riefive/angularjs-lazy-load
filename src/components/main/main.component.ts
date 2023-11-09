@@ -28,14 +28,19 @@ namespace App
             this.dataA = [];
             this.dataB = [];
             this.dataC = [];
-            this.taskASrv.GetAll().then((result) => {
-                this.dataA = result
-            })
-            this.taskBSrv.GetAll().then((result) => {
-                this.dataB = result
-            })
-            this.taskCSrv.GetAll().then((result) => {
-                this.dataC = result
+            return new Promise((resolve) => {
+                this.taskASrv.GetAll().then((result) => {
+                    this.dataA = result
+                })
+                this.taskBSrv.GetAll().then((result) => {
+                    this.dataB = result
+                })
+                this.taskCSrv.GetAll().then((result) => {
+                    this.dataC = result
+                })
+                setTimeout(() => {
+                    resolve([this.dataA, this.dataB, this.dataC]);
+                }, 1000);
             })
         }
     }
