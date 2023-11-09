@@ -4,7 +4,7 @@ namespace App
 
     export class UserController implements angular.IOnInit
     {
-        static $inject = ['$location', 'UserService']
+        static $inject = ['$scope', '$location', 'UserService']
         public loading = true
         public columns = [
             { id: 'number', text: '#' },
@@ -17,6 +17,7 @@ namespace App
         public page = 1
 
         constructor(
+            private scope: angular.IScope,
             private location: angular.ILocationService,
             private userSrv: UserService,
         )
@@ -30,12 +31,12 @@ namespace App
 
         getData() {
             this.rows.length = 0;
-            this.loading = true
+            this.loading = true;
             return this.userSrv.GetByParams({ page: this.page, limit: 10 }).then((result) => {
-                const data = result?.data || []
-                this.rows = data
-                this.loading = false
-                return result;
+                const data = result?.data;
+                this.rows = data;
+                this.loading = false;
+                return data;
             })
         }
 

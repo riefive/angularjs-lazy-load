@@ -34,7 +34,6 @@ describe('User Controller Test', () => {
     let scope: angular.IRootScopeService;
     let rootScope: angular.IRootScopeService;
     let location: angular.ILocationService;
-    let cmpnt: angular.IComponentControllerService;
     let ctrl: angular.IControllerService;
 
     beforeEach(() => {
@@ -43,16 +42,14 @@ describe('User Controller Test', () => {
             function(
                 $rootScope: angular.IRootScopeService, 
                 $controller: angular.IControllerService,
-                $componentController: angular.IComponentControllerService,
                 $compile: angular.ICompileService, 
                 $location: angular.ILocationService,
                 $httpBackend: angular.IHttpBackendService
             )
             {
-                $httpBackend.whenPOST(/\/*/).passThrough();
                 $httpBackend.whenGET(/\/*/).passThrough();
+
                 ctrl = $controller;
-                cmpnt = $componentController
                 rootScope = $rootScope;
                 scope = $rootScope.$new();
                 location = $location;
@@ -62,7 +59,7 @@ describe('User Controller Test', () => {
                 srv = injector.get('UserService');
                 scope.$apply();
         });
-        component = ctrl('userPage', { $location: location, UserService: srv });
+        component = ctrl('userPage', { $scope: scope });
     });
 
     it('User page should be created', () => {
@@ -99,4 +96,15 @@ describe('User Controller Test', () => {
         expect(result).toEqual('-');
         expect(spyOnDisplayThen).toHaveBeenCalled();
     });
+
+    it('User handle getData', async () => {
+        const spyOnDataThen = spyOn(component, 'getData');
+        rootScope.$digest();
+        return component.getData().then((result: any) => {
+            expect((result as any)).not.toBeNull();
+            expect((result as any).length).toEqual(10);
+            expect(spyOnDataThen).toHaveBeenCalled();
+            return result;
+        });
+    }, 5000);
 });
