@@ -4,12 +4,13 @@ namespace App
 
     export class MainPage implements angular.IOnInit
     {
-        static $inject = ['TaskAService', 'TaskBService', 'TaskCService']
+        static $inject = ['$scope', 'TaskAService', 'TaskBService', 'TaskCService']
         public dataA: any = []
         public dataB: any = []
         public dataC: any = []
 
         constructor(
+            private scope: angular.IScope,
             private taskASrv: TaskAService,
             private taskBSrv: TaskBService,
             private taskCSrv: TaskCService,
@@ -23,25 +24,42 @@ namespace App
             this.getData()
         }
 
-        getData()
+        public getTest()
+        {
+            return Promise.resolve({ id: 'tester', name: 'Lorem ipsum' })
+        }
+
+        public getTaskA()
         {
             this.dataA = [];
-            this.dataB = [];
-            this.dataC = [];
-            return new Promise((resolve) => {
-                this.taskASrv.GetAll().then((result) => {
-                    this.dataA = result
-                })
-                this.taskBSrv.GetAll().then((result) => {
-                    this.dataB = result
-                })
-                this.taskCSrv.GetAll().then((result) => {
-                    this.dataC = result
-                })
-                setTimeout(() => {
-                    resolve([this.dataA, this.dataB, this.dataC]);
-                }, 1000);
+            return this.taskASrv.GetAll().then((result) => {
+                this.dataA = result;
             })
+        }
+
+        public getTaskB()
+        {
+            this.dataB = [];
+            return this.taskBSrv.GetAll().then((result) => {
+                this.dataB = result;
+                return result;
+            })
+        }
+
+        public getTaskC()
+        {
+            this.dataC = [];
+            return this.taskCSrv.GetAll().then((result) => {
+                this.dataC = result;
+                return result;
+            })
+        }
+
+        getData()
+        {
+            this.getTaskA();
+            this.getTaskB();
+            this.getTaskC();
         }
     }
 

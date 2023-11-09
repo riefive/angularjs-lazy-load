@@ -9,7 +9,7 @@ require('angular-cookies');
 require('angular-mocks/ngMockE2E');
 require('jest');
 
-let providers = angular.module('MyApp', []);
+let providers = angular.module('MyApp', ['ng']);
 (providers as any).lazy = {
     factory: providers.factory
 }
@@ -30,10 +30,10 @@ describe('TaskC Service Test', () => {
                 $httpBackend: angular.IHttpBackendService
             ) 
             {
-                $httpBackend.whenPOST(/\/*/).passThrough();
                 $httpBackend.whenGET(/\/*/).passThrough();
+                
                 rootScope = $rootScope;
-                service = angular.injector(['MyApp', 'ng']).get('TaskCService');
+                service = angular.injector(['MyApp']).get('TaskCService');
             }
         );
     });
@@ -42,11 +42,18 @@ describe('TaskC Service Test', () => {
         expect(service).toBeDefined();
     });
 
+    it('TaskC Service get', (done) => {
+        service.Get().then((result: any) => {
+            expect(result[0].id).toEqual('task-1-c')
+            done();
+        });
+    }, 5000);
+
     it('TaskC Service get all', (done) => {
         service.GetAll().then((result: any) => {
             expect(result.length).toBe(5)
             expect(result[0].id).toEqual('task-1-c')
             done();
         });
-    }, 5000)
+    }, 5000);
 });

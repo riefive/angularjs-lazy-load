@@ -90,16 +90,16 @@ describe('Post Controller Test', () => {
     });
 
     it('Post handle doEdit', () => {
-        const id = 5
         const spyOnEditThen = spyOn(component, 'doEdit');
+        const id = 5
         component.doEdit(id);
         expect(location.path()).toEqual(`/post/${id}`);
         expect(spyOnEditThen).toHaveBeenCalled();
     });
 
     it('Post handle doRemove', () => {
-        const id = 5
         const spyOnRemoveThen = spyOn(component, 'doRemove');
+        const id = 5
         component.doRemove(id);
         expect(component.idRemove).toEqual(id);
         expect(spyOnRemoveThen).toHaveBeenCalled();
@@ -117,9 +117,9 @@ describe('Post Controller Test', () => {
     }, 5000);
 
     it('Post handle remove success', async () => {
+        const spyOnDataThen = spyOn(component, 'handleRemove');
         const id = 5
         component.idRemove = id
-        const spyOnDataThen = spyOn(component, 'handleRemove');
         rootScope.$digest();
         return component.handleRemove(id).then((result: any) => {
             expect((result as any).status).toEqual(200);
@@ -129,9 +129,9 @@ describe('Post Controller Test', () => {
     }, 5000);
 
     it('Post handle remove failed', async () => {
+        const spyOnDataThen = spyOn(component, 'handleRemove');
         const id = 5
         component.idRemove = 0
-        const spyOnDataThen = spyOn(component, 'handleRemove');
         rootScope.$digest();
         return component.handleRemove(id).then((result: any) => {
             expect((result as any)).not.toBeTruthy();

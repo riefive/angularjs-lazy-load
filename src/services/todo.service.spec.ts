@@ -9,7 +9,7 @@ require('angular-cookies');
 require('angular-mocks/ngMockE2E');
 require('jest');
 
-let providers = angular.module('MyApp', []);
+let providers = angular.module('MyApp', ['ng']);
 (providers as any).lazy = {
     factory: providers.factory
 }
@@ -37,10 +37,13 @@ describe('Todo Service Test', () => {
                 $httpBackend: angular.IHttpBackendService
             ) 
             {
-                $httpBackend.whenPOST(/\/*/).passThrough();
                 $httpBackend.whenGET(/\/*/).passThrough();
+                $httpBackend.whenPUT(/\/*/).passThrough();
+                $httpBackend.whenPOST(/\/*/).passThrough();
+                $httpBackend.whenDELETE(/\/*/).passThrough();
+
                 rootScope = $rootScope;
-                service = angular.injector(['MyApp', 'ng']).get('TodoService');
+                service = angular.injector(['MyApp']).get('TodoService');
             }
         );
     });

@@ -83,8 +83,8 @@ describe('User Controller Test', () => {
     });
 
     it('User get display address with content', () => {
-        const userAddress = { street: 'My street', city: 'City', zipcode: '65100' };
         const spyOnDisplayThen = spyOn(component, 'getDisplayStreet');
+        const userAddress = { street: 'My street', city: 'City', zipcode: '65100' };
         const result = component.getDisplayStreet(userAddress);
         expect(result).toEqual('My street, City - 65100');
         expect(spyOnDisplayThen).toHaveBeenCalled();

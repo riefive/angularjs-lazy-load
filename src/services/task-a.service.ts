@@ -16,15 +16,17 @@ namespace App
         {
         }
 
+        Get()
+        {
+            return Promise.resolve(this.data)
+        }
+
         GetAll()
         {
-            var deferred = this.q.defer();
-            var promise = deferred.promise;
-
-            setTimeout(() => {
-                deferred.resolve(this.data)
-            }, 150)
-            return promise
+            let deferred = this.q.defer();
+            let promise = deferred.promise;
+            deferred.resolve(this.data);
+            return promise;
         }
 
         static Factory(q: angular.IQService)

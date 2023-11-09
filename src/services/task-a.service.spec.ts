@@ -30,8 +30,8 @@ describe('TaskA Service Test', () => {
                 $httpBackend: angular.IHttpBackendService
             ) 
             {
-                $httpBackend.whenPOST(/\/*/).passThrough();
                 $httpBackend.whenGET(/\/*/).passThrough();
+
                 rootScope = $rootScope;
                 service = angular.injector(['MyApp', 'ng']).get('TaskAService');
             }
@@ -42,11 +42,18 @@ describe('TaskA Service Test', () => {
         expect(service).toBeDefined();
     });
 
+    it('TaskA Service get', (done) => {
+        service.Get().then((result: any) => {
+            expect(result[0].id).toEqual('task-1-a')
+            done();
+        });
+    }, 5000);
+
     it('TaskA Service get all', (done) => {
         service.GetAll().then((result: any) => {
             expect(result.length).toBe(5)
             expect(result[0].id).toEqual('task-1-a')
             done();
         });
-    }, 5000)
+    }, 5000);
 });
