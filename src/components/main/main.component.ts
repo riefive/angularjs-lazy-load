@@ -4,7 +4,7 @@ namespace App
 
     export class MainPage implements angular.IOnInit
     {
-        static $inject = ['$scope', 'TaskAService', 'TaskBService', 'TaskCService']
+        static $inject = ['$scope', 'TaskAService', 'TaskBService', 'TaskCService', 'ScientistService']
         public dataA: any = []
         public dataB: any = []
         public dataC: any = []
@@ -14,6 +14,7 @@ namespace App
             private taskASrv: TaskAService,
             private taskBSrv: TaskBService,
             private taskCSrv: TaskCService,
+            private scientistSrv: ScientistService
         )
         {
             this.$onInit()
@@ -60,6 +61,7 @@ namespace App
             this.getTaskA();
             this.getTaskB();
             this.getTaskC();
+            this.scientistSrv.GetAll();
         }
     }
 

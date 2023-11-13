@@ -17,5 +17,7 @@
     // @see https://babeljs.io/docs/options#ignore
     "ignore": [
         "src/interfaces/**"
+        //"**/*.spec.ts",
+        //"**/*.test.ts"
     ]
 }
